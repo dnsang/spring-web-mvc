@@ -11,6 +11,8 @@ import sangdn.stepbystep.spring.domain.Product;
 import sangdn.stepbystep.spring.services.ProductService;
 import sangdn.stepbystep.spring.services.ProductServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by sangdn on 9/22/15.
  */
@@ -33,10 +35,11 @@ public class ProductController {
         return "product";
     }
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String saveProduct(Product product){
+    public String saveProduct(Product product,HttpServletRequest request){
         logger.info("saveProduct: " +product.getId());
         productService.update(product);
         logger.info("saveProduct: " + product.getId());
+
         return "redirect:/product/" + product.getId();
     }
     @RequestMapping("/product/{id}")
@@ -55,8 +58,9 @@ public class ProductController {
         return "product-new";
     }
     @RequestMapping("/product/delete/{id}")
-    public String deleteProduct(@PathVariable int id){
+    public String deleteProduct(@PathVariable int id,HttpServletRequest request){
         productService.delete(id);
+
         return "redirect:/product";
     }
 //    @RequestMapping("/product")
